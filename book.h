@@ -4,8 +4,21 @@
 
 #pragma once
 #include <vector>
+#include <string>
 
 struct Book{
+    Book() {
+        id=-1;
+        title="";
+        isbn="";
+        avgRating=-1;
+        description="";
+        url="";
+        publisher="";
+        numPages=-1;
+        publicationYear=-1;
+        imageURL="";
+    }
     int id;
     std::string title;
     std::string isbn;

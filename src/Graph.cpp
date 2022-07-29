@@ -4,6 +4,7 @@
 
 #include "Graph.h"
 
+//If a book happens to have no adjacents, function is called with -1 as the to vertex
 void Graph::insertEdge(Book &from, int to) {
     if(adjList.find(from.id) == adjList.end()){
         adjList[from.id].first = from;

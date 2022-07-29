@@ -76,8 +76,11 @@ Book Hashtable::searchKey(int key) {
     return notFound;
 }
 
-std::vector<int> &Hashtable::getRecommendations(int key) {
+std::vector<int> Hashtable::getRecommendations(int key) {
     return searchKey(key).similarBooks;
 }
 
-
+void Hashtable::updateGenres(int key, std::vector<std::string> &bookGenres) {
+    int index = hashFunction(key);
+    hashtable[index].genres = bookGenres;
+}

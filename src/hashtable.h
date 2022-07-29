@@ -10,7 +10,7 @@
 class Hashtable {
     private:
         int numKeys;
-        //CHOOSE GOOD PRIME NUMBER- referenced from https://www.planetmath.org/goodhashtableprimes, hashtable will be doubled to accomodate all 2.3 million books.
+        //CHOOSE GOOD PRIME NUMBER- referenced from https://www.planetmath.org/goodhashtableprimes, hashtable will be doubled to accommodate all 2.3 million books.
         int numBuckets;
         float const MAX_LOADFACTOR=0.75;
         std::vector<Book> hashtable;
@@ -21,6 +21,8 @@ class Hashtable {
         void insertKey(std::vector<Book>& table, int key, Book& value) const;
         void insertKey(int key, Book& value);
         Book searchKey(int key);
+        std::vector<int>& getRecommendations(int key);
+
 
 };
 

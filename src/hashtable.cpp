@@ -76,5 +76,8 @@ Book Hashtable::searchKey(int key) {
     return notFound;
 }
 
+std::vector<int> &Hashtable::getRecommendations(int key) {
+    return searchKey(key).similarBooks;
+}
 
 

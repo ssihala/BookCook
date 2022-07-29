@@ -27,6 +27,7 @@ struct Book{
     std::string description;
     std::string url;
     std::vector<std::string> authors;
+    std::vector<std::string> genres;
     std::string publisher;
     int numPages;
     int publicationYear;

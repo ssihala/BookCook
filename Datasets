@@ -58,8 +58,5 @@ EXAMPLE:
 
 **ID will be matched and list of genres added-The numbers likely represent # of people who shelved book to that genre, we'll use a threshold of 5 to consider a book part of a genre.
              
-USER SHELVES:
- https://drive.google.com/open?id=1zmylV7XW2dfQVCLeg1LbllfQtHD2KUon
-
 
 

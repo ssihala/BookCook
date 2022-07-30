@@ -84,3 +84,14 @@ void Hashtable::updateGenres(int key, std::vector<std::string> &bookGenres) {
     int index = hashFunction(key);
     hashtable[index].genres = bookGenres;
 }
+
+std::vector<int> Hashtable::searchByGenre(const std::string& genre) {
+    std::vector<int> ids;
+    for(const auto& book : hashtable){
+        for(const auto& element : book.genres)
+            if(element == genre)
+                ids.push_back(book.id);
+    }
+
+    return ids;
+}

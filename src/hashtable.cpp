@@ -70,6 +70,40 @@ void Hashtable::insertKey(std::vector<Book> &table, int key, Book &value) const 
     }
 }
 
+void Hashtable::insertKey(std::vector<Book> &table, std::string key, Book &value) const {
+    int index= hashFunction(key);
+    if(table[index].id==-1)
+        table[index]=value;
+    else{
+        //COLLISION RESOLUTION-QUADRATIC PROBING
+        for(int i=0; i<numBuckets; i++){
+            if(table[(index + i*i)%numBuckets].id== -1){
+                table[(index + i*i)%numBuckets]=value;
+                break;
+            }
+        }
+    }
+}
+
+void Hashtable::insertKey(std::string key, Book &value) {
+    int index= hashFunction(key);
+    numKeys++;
+    if(hashtable[index].id==-1)
+        hashtable[index]=value;
+    else{
+        //COLLISION RESOLUTION-QUADRATIC PROBING
+        for(int i=0; i<numBuckets; i++){
+            if(hashtable[(index + i*i)%numBuckets].id== -1){
+                hashtable[(index + i*i)%numBuckets]=value;
+                break;
+            }
+        }
+    }
+
+    if((float)numKeys/(float)numBuckets > MAX_LOADFACTOR)
+        expandTable();
+}
+
 Book Hashtable::searchKey(int key) {
     int index = hashFunction(key);
     if(hashtable[index].id == key)

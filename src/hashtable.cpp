@@ -3,7 +3,7 @@
 //
 
 #include "hashtable.h"
-
+#include <cmath>
 Hashtable::Hashtable() {
     numKeys=0;
     numBuckets=1572869;
@@ -12,6 +12,16 @@ Hashtable::Hashtable() {
 
 int Hashtable::hashFunction(int key) const {
     return key%numBuckets;
+}
+
+int Hashtable::hashFunction(std::string key) const {
+    int hash=0;
+    //Overflow avoided using properties of modulus operator
+    for(int i=0; i<key.length(); i++){
+        hash += std::pow(HASH_FACTOR, i) * key[i];
+        hash = hash%numBuckets;
+    }
+    return hash%numBuckets;
 }
 
 void Hashtable::expandTable() {
@@ -95,3 +105,4 @@ std::vector<int> Hashtable::searchByGenre(const std::string& genre) {
 
     return ids;
 }
+

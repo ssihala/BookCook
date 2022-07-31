@@ -16,11 +16,8 @@ class Hashtable {
         std::vector<Book> hashtable;
     public:
         Hashtable();
-        int hashFunction(int key) const;
         int hashFunction(std::string key) const;
         void expandTable();
-        void insertKey(std::vector<Book>& table, int key, Book& value) const;
-        void insertKey(int key, Book& value);
         void insertKey(std::vector<Book>& table, std::string key, Book& value) const;
         void insertKey(std::string key, Book& value);
         Book searchKey(int key);

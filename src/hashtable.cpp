@@ -10,9 +10,6 @@ Hashtable::Hashtable() {
     hashtable.resize(numBuckets);
 }
 
-int Hashtable::hashFunction(int key) const {
-    return key%numBuckets;
-}
 
 int Hashtable::hashFunction(std::string key) const {
     int hash=0;
@@ -31,44 +28,12 @@ void Hashtable::expandTable() {
 
     for(Book element : hashtable)
         if(element.id != -1)
-            insertKey(newTable, element.id, element);
+            insertKey(newTable, element.title, element);
 
     hashtable = newTable;
 }
 
-void Hashtable::insertKey(int key, Book& value) {
-    int index= hashFunction(key);
-    numKeys++;
-    if(hashtable[index].id==-1)
-        hashtable[index]=value;
-    else{
-        //COLLISION RESOLUTION-QUADRATIC PROBING
-        for(int i=0; i<numBuckets; i++){
-            if(hashtable[(index + i*i)%numBuckets].id== -1){
-                hashtable[(index + i*i)%numBuckets]=value;
-                break;
-            }
-        }
-    }
 
-    if((float)numKeys/(float)numBuckets > MAX_LOADFACTOR)
-        expandTable();
-}
-
-void Hashtable::insertKey(std::vector<Book> &table, int key, Book &value) const {
-    int index= hashFunction(key);
-    if(table[index].id==-1)
-        table[index]=value;
-    else{
-        //COLLISION RESOLUTION-QUADRATIC PROBING
-        for(int i=0; i<numBuckets; i++){
-            if(table[(index + i*i)%numBuckets].id== -1){
-                table[(index + i*i)%numBuckets]=value;
-                break;
-            }
-        }
-    }
-}
 
 void Hashtable::insertKey(std::vector<Book> &table, std::string key, Book &value) const {
     int index= hashFunction(key);

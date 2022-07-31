@@ -69,13 +69,13 @@ void Hashtable::insertKey(std::string key, Book &value) {
         expandTable();
 }
 
-Book Hashtable::searchKey(int key) {
+Book Hashtable::searchKey(const std::string& key) {
     int index = hashFunction(key);
-    if(hashtable[index].id == key)
+    if(hashtable[index].title == key)
         return hashtable[index];
     else{
         for(int i=0; i<numBuckets; i++){
-            if(hashtable[(index + i*i)%numBuckets].id== key){
+            if(hashtable[(index + i*i)%numBuckets].title== key){
                 return hashtable[(index + i*i)%numBuckets];
             }
         }
@@ -85,12 +85,12 @@ Book Hashtable::searchKey(int key) {
     return notFound;
 }
 
-std::vector<int> Hashtable::getRecommendations(int key) {
-    return searchKey(key).similarBooks;
+std::vector<int> Hashtable::getRecommendations(const std::string& title) {
+    return searchKey(title).similarBooks;
 }
 
-void Hashtable::updateGenres(int key, std::vector<std::string> &bookGenres) {
-    int index = hashFunction(key);
+void Hashtable::updateGenres(std::string title, std::vector<std::string> &bookGenres) {
+    int index = hashFunction(std::move(title));
     hashtable[index].genres = bookGenres;
 }
 

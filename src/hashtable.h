@@ -20,9 +20,9 @@ class Hashtable {
         void expandTable();
         void insertKey(std::vector<Book>& table, std::string key, Book& value) const;
         void insertKey(std::string key, Book& value);
-        Book searchKey(int key);
-        std::vector<int> getRecommendations(int key);
-        void updateGenres(int key, std::vector<std::string>& bookGenres);
+        Book searchKey(const std::string& key);
+        std::vector<int> getRecommendations(const std::string& title);
+        void updateGenres(std::string title, std::vector<std::string>& bookGenres);
         std::vector<int> searchByGenre(const std::string& genre);
 
 };

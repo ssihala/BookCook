@@ -20,7 +20,8 @@ class Graph {
         //Inserts "from" book into graph, and creates an edge with "to"
         void insertEdge(Book& from, int to);
         Book searchID(const std::string& title);
-        std::vector<int> getAdjacents(const std::string& title);
+        std::vector<std::string> getAdjacents(const std::string& title);
+        //Called after all edges are inserted into graph
         void loadIDMapping();
 
 };

@@ -24,8 +24,12 @@ Book Graph::searchID(const std::string& title) {
     }
 }
 
-std::vector<int> Graph::getAdjacents(const std::string& title) {
-    return adjList[title].second;
+std::vector<std::string> Graph::getAdjacents(const std::string& title) {
+    std::vector<std::string> adjacents;
+    for(int element : adjList[title].second)
+        adjacents.push_back(idMapping[element]);
+
+    return adjacents;
 }
 
 void Graph::loadIDMapping() {

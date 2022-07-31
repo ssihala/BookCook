@@ -11,14 +11,14 @@
 
 class Graph {
     private:
-        //Adjacency List: Key:BookID, Value: pair<Book object, vector of recommended books(IDs) by readers>
-        std::unordered_map<int, std::pair<Book, std::vector<int>>> adjList;
+        //Adjacency List: Key:Book Title, Value: pair<Book object, vector of recommended books(IDs) by readers>
+        std::unordered_map<std::string, std::pair<Book, std::vector<int>>> adjList;
         int numBooks=0;
     public:
         //Inserts "from" book into graph, and creates an edge with "to"
         void insertEdge(Book& from, int to);
-        Book searchID(int id);
-        std::vector<Book> getAdjacents(int id);
+        Book searchID(const std::string& title);
+        std::vector<int> getAdjacents(const std::string& title);
 
 };
 

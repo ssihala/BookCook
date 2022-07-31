@@ -6,30 +6,24 @@
 
 //If a book happens to have no adjacents, function is called with -1 as the to vertex
 void Graph::insertEdge(Book &from, int to) {
-    if(adjList.find(from.id) == adjList.end()){
-        adjList[from.id].first = from;
+    if(adjList.find(from.title) == adjList.end()){
+        adjList[from.title].first = from;
         numBooks++;
     }
 
-    adjList[from.id].second.push_back(to);
+    adjList[from.title].second.push_back(to);
 
 }
 
-Book Graph::searchID(int id) {
-    if(adjList.find(id) != adjList.end())
-        return adjList[id].first;
+Book Graph::searchID(const std::string& title) {
+    if(adjList.find(title) != adjList.end())
+        return adjList[title].first;
     else{
         Book null;
         return null;
     }
 }
 
-std::vector<Book> Graph::getAdjacents(int id) {
-    std::vector<Book> adjacents;
-
-    for(auto element : adjList[id].second){
-        adjacents.push_back(adjList[element].first);
-    }
-
-    return adjacents;
+std::vector<int> Graph::getAdjacents(const std::string& title) {
+    return adjList[title].second;
 }

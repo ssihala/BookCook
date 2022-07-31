@@ -27,3 +27,8 @@ Book Graph::searchID(const std::string& title) {
 std::vector<int> Graph::getAdjacents(const std::string& title) {
     return adjList[title].second;
 }
+
+void Graph::loadIDMapping() {
+    for(auto it = adjList.begin(); it != adjList.end(); it++)
+        idMapping[it->second.first.id] = it->first;
+}

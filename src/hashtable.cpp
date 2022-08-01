@@ -6,7 +6,7 @@
 #include <cmath>
 Hashtable::Hashtable() {
     numKeys=0;
-    numBuckets=1572869;
+    numBuckets=98317;
     hashtable.resize(numBuckets);
 }
 

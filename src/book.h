@@ -21,7 +21,6 @@ struct Book{
     std::string isbn;
     double avgRating;
     std::vector<int> similarBooks;
-    std::vector<std::string> authors;
     std::vector<std::string> genres;
     std::string publisher;
     int numPages;

@@ -10,9 +10,10 @@
 using json = nlohmann::json;
 
 void loadHash(Hashtable& hash){
-    std::ifstream file("goodreads_books_poetry.json");
+    std::ifstream file("edit.json");
     bool fileEnd = false;
     json data;
+    int numBooks =0;
     //file >> data;
     Book tmp;
     std::string tmpString;
@@ -98,7 +99,7 @@ void loadHash(Hashtable& hash){
         hash.insertKey(tmp.title, tmp);
 
         }
-*/
+
     while(!fileEnd){
         try{
             data.clear();
@@ -159,10 +160,45 @@ void loadHash(Hashtable& hash){
                 tmp.id = std::stoi(tmpString);
 
         hash.insertKey(tmp.title, tmp);
+        std::cout << numBooks++ << std::endl;
 
     }
+*/
+    std::vector<std::string> nums;
+    file >> data;
+    int num=0;
+    for(auto element : data){
+        tmp.isbn = element["isbn"];
+        tmp.title = element["title"];
+        tmpString = element["average_rating"];
+        if(!tmpString.empty())
+            tmp.avgRating = std::stod(tmpString);
 
+        tmp.publisher = element["publisher"];
 
+        tmpString = element["num_pages"];
+        if(!tmpString.empty())
+            tmp.numPages = std::stoi(tmpString);
+
+        tmpString = element["publication_year"];
+        if(!tmpString.empty())
+            tmp.publicationYear = std::stoi(tmpString);
+
+        tmpString = element["book_id"];
+        if(!tmpString.empty())
+            tmp.id = std::stoi(tmpString);
+
+        if(element["similar_books"].size() != 0){
+            for(const auto& recommend : element["similar_books"]){
+                tmpString = recommend;
+                if(!tmpString.empty() && tmp.similarBooks.size() <5)
+                    tmp.similarBooks.push_back(std::stoi(tmpString));
+            }
+        }
+        hash.insertKey(tmp.title, tmp);
+        std::cout <<num++ << std::endl;
+    }
+    std::cout << num;
     std::cout << "DONE";
     }
 

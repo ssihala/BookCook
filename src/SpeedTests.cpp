@@ -4,10 +4,10 @@
 
 #include "SpeedTests.h"
 
-void insertionTest(Hashtable& hash, Graph& graph) {
+void insertionTest(Hashtable& hash, Graph& graph, int num) {
     //Reference: https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
 
-    int numElements=2000000;
+    int numElements=num;
 
 
     auto hashBegin = std::chrono::high_resolution_clock::now();

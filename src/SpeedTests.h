@@ -9,7 +9,7 @@
 #include <iostream>
 
 
-void insertionTest(Hashtable& hash, Graph& graph);
+void insertionTest(Hashtable& hash, Graph& graph, int num);
 
 
 void searchTest(Hashtable& hash, Graph& graph);

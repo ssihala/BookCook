@@ -11,7 +11,7 @@ class Hashtable {
         int numKeys;
         //CHOOSE GOOD PRIME NUMBER- referenced from https://www.planetmath.org/goodhashtableprimes, hashtable will be doubled to accommodate all 2.3 million books.
         int numBuckets;
-        const int HASH_FACTOR=31;
+        //const int HASH_FACTOR=31;
         float const MAX_LOADFACTOR=0.75;
         std::vector<Book> hashtable;
     public:

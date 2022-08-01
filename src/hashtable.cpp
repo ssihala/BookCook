@@ -15,7 +15,7 @@ int Hashtable::hashFunction(std::string key) const {
     int hash=0;
     //Overflow avoided using properties of modulus operator
     for(int i=0; i<key.length(); i++){
-        hash += std::pow(HASH_FACTOR, i) * key[i];
+        hash += key[i];
         hash = hash%numBuckets;
     }
     return hash%numBuckets;

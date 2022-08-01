@@ -9,8 +9,8 @@
 
 using json = nlohmann::json;
 
-void loadHash(Hashtable& hash){
-    std::ifstream file("edit.json");
+void loadHash(Hashtable& hash, std::unordered_map<int, std::string> idMapping){
+    std::ifstream file("childrens_trimmed.json");
     bool fileEnd = false;
     json data;
     int numBooks =0;
@@ -195,11 +195,9 @@ void loadHash(Hashtable& hash){
                     tmp.similarBooks.push_back(std::stoi(tmpString));
             }
         }
+        idMapping[tmp.id] = tmp.title;
         hash.insertKey(tmp.title, tmp);
-        std::cout <<num++ << std::endl;
     }
-    std::cout << num;
-    std::cout << "DONE";
     }
 
 

@@ -18,6 +18,9 @@ int Hashtable::hashFunction(std::string key) const {
         hash += key[i];
         hash = hash%numBuckets;
     }
+    if(hash < 0)
+        hash += numBuckets;
+
     return hash%numBuckets;
 }
 

@@ -76,7 +76,7 @@ Book Hashtable::searchKey(const std::string& key) {
     if(hashtable[index].title == key)
         return hashtable[index];
     else{
-        int i=0;
+        int i=1;
         while(i!=0){
             if(hashtable[(index + i*i)%numBuckets].title== key){
                 return hashtable[(index + i*i)%numBuckets];

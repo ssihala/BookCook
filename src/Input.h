@@ -8,4 +8,5 @@
 #include "Graph.h"
 #include "../nlohmann/json.hpp"
 
-void loadHash(Hashtable& hash);
+void loadHash(Hashtable& hash, std::unordered_map<int, std::string>& idMapping);
+void loadGraph(Graph& graph);

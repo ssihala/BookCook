@@ -9,165 +9,14 @@
 
 using json = nlohmann::json;
 
-void loadHash(Hashtable& hash, std::unordered_map<int, std::string> idMapping){
+void loadHash(Hashtable& hash, std::unordered_map<int, std::string>& idMapping){
     std::ifstream file("childrens_trimmed.json");
     bool fileEnd = false;
     json data;
-    int numBooks =0;
-    //file >> data;
-    Book tmp;
     std::string tmpString;
-    double tmpDouble;
-    int tmpInt;
-    std::vector<std::string> tmpVec;
-    std::vector<int> tmpIntVec;
-
-    /*
-    while(!fileEnd){
-        try{
-            data.clear();
-            file >> data;
-        }
-        catch(json::parse_error& excp){
-            //std::cout << "EXCEPTION";
-            fileEnd = true;
-            break;
-        }
-
-        tmpVec.clear();
-        tmpIntVec.clear();
-        tmpString.clear();
-
-        if(data.contains("isbn"))
-            tmp.isbn = data["isbn"];
-
-        if(data.contains("title"))
-                tmp.title = data["title"];
-
-        if(data.contains("average_rating")){
-            tmpString = data["average_rating"];
-            if(!tmpString.empty())
-                tmp.avgRating = std::stod(tmpString);
-        }
-
-        if(data.contains("similar_books")){
-            for(const auto& element : data["similar_books"]){
-                tmpString = element;
-                if(!tmpString.empty())
-                    tmp.similarBooks.push_back(std::stoi(tmpString));
-            }
-        }
-
-        if(data.contains("description"))
-            tmp.description = data["description"];
-
-        if(data.contains("link"))
-            tmp.url = data["link"];
-
-        if(data.contains("authors"))
-            for(auto element : data["authors"]){
-                tmpString = element["author_id"];
-                if(!tmpString.empty())
-                    tmp.authors.push_back(tmpString);
-            }
-
-        if(data.contains("publisher"))
-            tmp.publisher = data["publisher"];
-
-        if(data.contains("num_pages")){
-            tmpString = data["num_pages"];
-            if(!tmpString.empty())
-                tmp.numPages = std::stoi(tmpString);
-        }
-
-        if(data.contains("publication_year")){
-            tmpString = data["publication_year"];
-            if(!tmpString.empty())
-                tmp.publicationYear = std::stoi(tmpString);
-        }
-
-        if(data.contains("image_url")){
-            tmp.imageURL = data["image_url"];
-        }
-
-        if(data.contains("book_id")){
-            tmpString = data["book_id"];
-            if(!tmpString.empty())
-                tmp.id = std::stoi(tmpString);
-        }
-
-        hash.insertKey(tmp.title, tmp);
-
-        }
-
-    while(!fileEnd){
-        try{
-            data.clear();
-            file >> data;
-        }
-        catch(json::parse_error& excp){
-            //std::cout << "EXCEPTION";
-            fileEnd = true;
-            break;
-        }
-
-        tmpVec.clear();
-        tmpIntVec.clear();
-        tmpString.clear();
-
-
-        tmp.isbn = data["isbn"];
-        tmp.title = data["title"];
-        tmpString = data["average_rating"];
-        if(!tmpString.empty())
-            tmp.avgRating = std::stod(tmpString);
-
-        for(const auto& element : data["similar_books"]){
-            tmpString = element;
-            if(!tmpString.empty())
-                tmp.similarBooks.push_back(std::stoi(tmpString));
-            }
-
-        tmp.description = data["description"];
-
-        tmp.url = data["link"];
-
-        for(auto element : data["authors"]){
-            tmpString = element["author_id"];
-            if(!tmpString.empty())
-                tmp.authors.push_back(tmpString);
-            }
-
-
-            tmp.publisher = data["publisher"];
-
-
-            tmpString = data["num_pages"];
-            if(!tmpString.empty())
-                tmp.numPages = std::stoi(tmpString);
-
-
-
-            tmpString = data["publication_year"];
-            if(!tmpString.empty())
-                tmp.publicationYear = std::stoi(tmpString);
-
-            tmp.imageURL = data["image_url"];
-
-
-            tmpString = data["book_id"];
-            if(!tmpString.empty())
-                tmp.id = std::stoi(tmpString);
-
-        hash.insertKey(tmp.title, tmp);
-        std::cout << numBooks++ << std::endl;
-
-    }
-*/
-    std::vector<std::string> nums;
     file >> data;
-    int num=0;
     for(auto element : data){
+        Book tmp;
         tmp.isbn = element["isbn"];
         tmp.title = element["title"];
         tmpString = element["average_rating"];
@@ -188,17 +37,64 @@ void loadHash(Hashtable& hash, std::unordered_map<int, std::string> idMapping){
         if(!tmpString.empty())
             tmp.id = std::stoi(tmpString);
 
-        if(element["similar_books"].size() != 0){
+        if(!element["similar_books"].empty()){
             for(const auto& recommend : element["similar_books"]){
                 tmpString = recommend;
                 if(!tmpString.empty() && tmp.similarBooks.size() <5)
                     tmp.similarBooks.push_back(std::stoi(tmpString));
             }
         }
+
         idMapping[tmp.id] = tmp.title;
         hash.insertKey(tmp.title, tmp);
     }
     }
+
+void loadGraph(Graph& graph){
+    std::ifstream file("childrens_trimmed.json");
+    bool fileEnd = false;
+    json data;
+    std::string tmpString;
+    file >> data;
+
+    for(auto element : data){
+        Book tmp;
+        tmp.isbn = element["isbn"];
+        tmp.title = element["title"];
+        tmpString = element["average_rating"];
+        if(!tmpString.empty())
+            tmp.avgRating = std::stod(tmpString);
+
+        tmp.publisher = element["publisher"];
+
+        tmpString = element["num_pages"];
+        if(!tmpString.empty())
+            tmp.numPages = std::stoi(tmpString);
+
+        tmpString = element["publication_year"];
+        if(!tmpString.empty())
+            tmp.publicationYear = std::stoi(tmpString);
+
+        tmpString = element["book_id"];
+        if(!tmpString.empty())
+            tmp.id = std::stoi(tmpString);
+
+        if(!element["similar_books"].empty()){
+            for(const auto& recommend : element["similar_books"]){
+                tmpString = recommend;
+                if(tmp.similarBooks.size() <5){
+                    int toID = std::stoi(tmpString);
+                    tmp.similarBooks.push_back(toID);
+                    graph.insertEdge(tmp, toID);
+                }
+            }
+        }
+        else{
+            graph.insertEdge(tmp, -1);
+        }
+    }
+    graph.loadIDMapping();
+}
 
 
 

@@ -22,8 +22,8 @@ class Hashtable {
         void insertKey(std::string key, Book& value);
         Book searchKey(const std::string& key);
         std::vector<int> getRecommendations(const std::string& title);
-        void updateGenres(std::string title, std::vector<std::string>& bookGenres);
-        std::vector<int> searchByGenre(const std::string& genre);
+//        void updateGenres(std::string title, std::vector<std::string>& bookGenres);
+//        std::vector<int> searchByGenre(const std::string& genre);
 
 };
 

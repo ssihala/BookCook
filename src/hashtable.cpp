@@ -10,7 +10,6 @@ Hashtable::Hashtable() {
     hashtable.resize(numBuckets);
 }
 
-
 int Hashtable::hashFunction(std::string key) const {
     int hash=0;
     //Overflow avoided using properties of modulus operator

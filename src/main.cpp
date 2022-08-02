@@ -32,10 +32,17 @@ int main(){
                 if (hash.searchKey(bookName).id == -1) // if book isn't in table
                     std::cout << "Book not found" << std::endl << std::endl;
                 else {
-                    for (int i = 0; i < hash.searchKey(bookName).similarBooks.size(), i++){
-                        std::cout << idMap.at(hash.searchKey(bookName).similarBooks.at(i)) << std::endl;
+                    Book result = hash.searchKey(bookName);
+                    if(result.similarBooks.empty())
+                        std::cout << "Sorry, no recommended books found in dataset" << std::endl;
+                    else{
+                        std::cout << "RECOMMENDATIONS: " << std::endl;
+                        for (int & similarBook : result.similarBooks){
+                            if(idMap.find(similarBook) != idMap.end())
+                                std::cout << idMap.at(similarBook) << std::endl;
+                        }
+                        std::cout << std::endl; // spacing
                     }
-                    std::cout << std::endl; // spacing
                 }
                 break; 
             case 2:
@@ -53,6 +60,3 @@ int main(){
 
     return 0;
 }
-
-
-

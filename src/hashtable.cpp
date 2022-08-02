@@ -76,12 +76,11 @@ Book Hashtable::searchKey(const std::string& key) {
     if(hashtable[index].title == key)
         return hashtable[index];
     else{
-        int i=1;
-        while(i!=0){
+        //Assume that data is evenly dispersed
+        for(int i=0; i<100; i++){
             if(hashtable[(index + i*i)%numBuckets].title== key){
                 return hashtable[(index + i*i)%numBuckets];
             }
-            i++;
         }
     }
 

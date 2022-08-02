@@ -57,11 +57,13 @@ void Hashtable::insertKey(std::string key, Book &value) {
         hashtable[index]=value;
     else{
         //COLLISION RESOLUTION-QUADRATIC PROBING
-        for(int i=0; i<numBuckets; i++){
+        int i=1;
+        while(i!=0){
             if(hashtable[(index + i*i)%numBuckets].id== -1){
                 hashtable[(index + i*i)%numBuckets]=value;
                 break;
             }
+            i++;
         }
     }
 
@@ -74,10 +76,12 @@ Book Hashtable::searchKey(const std::string& key) {
     if(hashtable[index].title == key)
         return hashtable[index];
     else{
-        for(int i=0; i<numBuckets; i++){
+        int i=0;
+        while(i!=0){
             if(hashtable[(index + i*i)%numBuckets].title== key){
                 return hashtable[(index + i*i)%numBuckets];
             }
+            i++;
         }
     }
 

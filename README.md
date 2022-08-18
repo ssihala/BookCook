@@ -1,4 +1,4 @@
-# BookProject
+# BookFinder
 
 Final Project for Data Structures and Algorithms:
 
